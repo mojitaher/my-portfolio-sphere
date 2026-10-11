@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import type { Project } from '../../types/project.types';
-import styles from '../sections/projectModal.module.css'
+import styles from './ProjectModal.module.css'
 
 interface ProjectModalProps {
   project: Project | null;
