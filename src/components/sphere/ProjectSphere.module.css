@@ -1,0 +1,49 @@
+.scene {
+  position: relative;
+  display: grid;
+  width: min(100%, 880px);
+  height: min(72vh, 700px);
+  min-height: 470px;
+  place-items: center;
+  overflow: hidden;
+  perspective: 1400px;
+  cursor: grab;
+  isolation: isolate;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.scene.dragging { cursor: grabbing; touch-action: none; }
+.sphere { position: relative; width: 1px; height: 1px; transform-style: preserve-3d; will-change: transform; }
+
+.ambient {
+  position: absolute;
+  width: min(70vw, 570px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(170 255 111 / 8%), rgb(110 130 255 / 4%) 38%, transparent 70%);
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+.orbit {
+  position: absolute;
+  width: min(74vw, 610px);
+  aspect-ratio: 1;
+  border: 1px solid rgb(255 255 255 / 7%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.orbitOne { transform: rotateX(72deg) rotateZ(-18deg); }
+.orbitTwo { width: min(58vw, 490px); transform: rotateY(72deg) rotateZ(28deg); border-color: rgb(255 255 255 / 5%); }
+.centerGlow { position: absolute; z-index: -1; width: 25%; aspect-ratio: 1; border-radius: 50%; background: #b7ff6a; filter: blur(90px); opacity: .07; pointer-events: none; }
+
+@media (max-width: 640px) {
+  .scene { height: 58vh; min-height: 390px; max-height: 560px; }
+  .orbit { width: 92vw; }
+  .orbitTwo { width: 72vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sphere { will-change: auto; }
+}
