@@ -62,7 +62,7 @@ export const projects: Project[] = [
     category: 'portfolio',
     year: '2025',
     description: 'this is my portfolio to interduce myself hope you like it',
-    technologies: ['React', 'Next.js', 'TypeScript','Tailwind','Gsap'],
+    technologies: [ 'Next.js', 'TypeScript','Tailwind','Gsap'],
     image: portfolioImage,
     accent: '#ff8e9e',
     liveUrl: 'https://myinterview-moji.vercel.app/',
