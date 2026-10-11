@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import type { Project } from './types/project.types';
 import { projects } from './data/projects';
-import { ProjectSphere } from './components/sphere/ProjectSphere';
+import  ProjectSphere from './components/sphere/ProjectSphere';
 import { ProjectModal } from './components/sections/ProjectModal';
 import styles from './styles/App.module.css';
 

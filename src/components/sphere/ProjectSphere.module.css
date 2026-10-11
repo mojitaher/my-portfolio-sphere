@@ -1,49 +1,99 @@
 .scene {
   position: relative;
-  display: grid;
-  width: min(100%, 880px);
-  height: min(72vh, 700px);
-  min-height: 470px;
-  place-items: center;
+  width: 100%;
+  max-width: 1000px;
+  height: min(65svh, 600px);
+  min-height: 360px;
+  margin-inline: auto;
   overflow: hidden;
-  perspective: 1400px;
-  cursor: grab;
   isolation: isolate;
   touch-action: pan-y;
+  cursor: grab;
   user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
-.scene.dragging { cursor: grabbing; touch-action: none; }
-.sphere { position: relative; width: 1px; height: 1px; transform-style: preserve-3d; will-change: transform; }
+.scene:active {
+  cursor: grabbing;
+}
 
-.ambient {
+.ambientSphere {
   position: absolute;
-  width: min(70vw, 570px);
+  top: 50%;
+  left: 50%;
+  width: clamp(200px, 34vw, 340px);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle, rgb(170 255 111 / 8%), rgb(110 130 255 / 4%) 38%, transparent 70%);
-  filter: blur(12px);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle,
+      rgb(112 110 231 / 22%) 0%,
+      rgb(85 196 174 / 10%) 38%,
+      transparent 72%);
+  filter: blur(24px);
   pointer-events: none;
+  z-index: 0;
 }
 
-.orbit {
+.sphereCore {
   position: absolute;
-  width: min(74vw, 610px);
+  top: 50%;
+  left: 50%;
+  width: clamp(150px, 23vw, 230px);
   aspect-ratio: 1;
-  border: 1px solid rgb(255 255 255 / 7%);
   border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 35% 30%,
+      rgb(255 255 255 / 10%),
+      rgb(112 110 231 / 9%) 35%,
+      rgb(10 20 30 / 7%) 68%,
+      transparent 75%);
+  box-shadow:
+    inset 0 0 35px rgb(112 110 231 / 12%),
+    0 0 55px rgb(112 110 231 / 10%);
   pointer-events: none;
+  z-index: 1;
 }
-.orbitOne { transform: rotateX(72deg) rotateZ(-18deg); }
-.orbitTwo { width: min(58vw, 490px); transform: rotateY(72deg) rotateZ(28deg); border-color: rgb(255 255 255 / 5%); }
-.centerGlow { position: absolute; z-index: -1; width: 25%; aspect-ratio: 1; border-radius: 50%; background: #b7ff6a; filter: blur(90px); opacity: .07; pointer-events: none; }
 
-@media (max-width: 640px) {
-  .scene { height: 58vh; min-height: 390px; max-height: 560px; }
-  .orbit { width: 92vw; }
-  .orbitTwo { width: 72vw; }
+.cardsLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .scene {
+    height: min(56svh, 430px);
+    min-height: 300px;
+    max-height: 430px;
+  }
+
+  .ambientSphere {
+    width: clamp(180px, 60vw, 270px);
+  }
+
+  .sphereCore {
+    width: clamp(135px, 42vw, 185px);
+  }
+}
+
+@media (max-width: 480px) {
+  .scene {
+    height: min(52svh, 360px);
+    min-height: 270px;
+  }
+}
+
+@media (max-height: 500px) {
+  .scene {
+    height: 80svh;
+    min-height: 220px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sphere { will-change: auto; }
+  .scene {
+    scroll-behavior: auto;
+  }
 }
+

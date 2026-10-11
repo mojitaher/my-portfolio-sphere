@@ -1,47 +1,72 @@
-import type { CSSProperties } from 'react';
-import type { Project } from '../../types/project.types';
-import styles from './SphereCard.module.css';
+
+import type { CSSProperties } from "react";
+import type { Project } from "../../types/project.types";
+import type { ProjectPosition } from "./sphere.utils";
+import Classes from "./SphereCard.module.css";
 
 interface SphereCardProps {
   project: Project;
-  index: number;
-  total: number;
-  radius: number;
+  position: ProjectPosition;
+  onHover: (project: Project | null) => void;
   onSelect: (project: Project) => void;
 }
 
-export function SphereCard({ project, index, total, radius, onSelect }: SphereCardProps) {
-  const position = getPosition(index, total, radius);
-  const style = {
-    '--x': `${position.x}px`,
-    '--y': `${position.y}px`,
-    '--z': `${position.z}px`,
-    '--rotate-y': `${position.rotateY}deg`,
-    '--rotate-x': `${position.rotateX}deg`,
-    '--accent': project.accent,
-    '--card-index': index,
+const SphereCard = ({
+  project,
+  position,
+  onHover,
+  onSelect,
+}: SphereCardProps) => {
+  const cardStyle = {
+    "--x": `${position.x}px`,
+    "--y": `${position.y}px`,
+    "--scale": position.scale,
+    "--opacity": position.opacity,
+    zIndex: Math.round(position.z + 1000),
   } as CSSProperties;
+
+  const handleClick = () => {
+    if (window.matchMedia("(hover: none)").matches) {
+      onHover(project);
+      return;
+    }
+
+    onSelect(project);
+  };
 
   return (
     <button
-      className={styles.card}
-      style={style}
       type="button"
-      aria-label={`View project ${project.title}`}
-      onClick={() => onSelect(project)}
+      data-project-id={project.id}
+      className={Classes.card}
+      style={cardStyle}
+      onMouseEnter={() => onHover(project)}
+      onFocus={() => onHover(project)}
+      onClick={handleClick}
+      aria-label={`مشاهده پروژه ${project.title}`}
     >
-      <span className={styles.imageWrap}>
-        <img className={styles.image} src={project.image} alt="" loading="lazy" draggable={false} />
-        <span className={styles.imageShade} />
-        <span className={styles.number}>{String(index + 1).padStart(2, '0')}</span>
-      </span>
-      <span className={styles.cardInfo}>
-        <span className={styles.category}>{project.category}</span>
-        <span className={styles.title}>{project.title}</span>
-        <span className={styles.year}>{project.year}</span>
-      </span>
+      <img
+        className={Classes.image}
+        src={project.image}
+        alt={project.title}
+        draggable={false}
+      />
+
+      <div className={Classes.cardInfo}>
+        <span className={Classes.category}>
+          {project.category}
+        </span>
+
+        <h3 className={Classes.title}>
+          {project.title}
+        </h3>
+
+        <span className={Classes.year}>
+          {project.year}
+        </span>
+      </div>
     </button>
   );
-}
+};
 
-import { getSpherePosition as getPosition } from './sphere.utils';
+export default SphereCard;
