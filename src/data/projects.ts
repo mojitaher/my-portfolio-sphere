@@ -41,7 +41,7 @@ export const projects: Project[] = [
     technologies: ['React', 'Vite', 'CSS Modules','Tailwind'],
     image: WeatherImage,
     accent: '#86c9ff',
-    liveUrl: '#',
+    liveUrl: 'https://weather-one-lemon-77.vercel.app/',
     sourceUrl: 'https://github.com/mojitaher/weather',
   },
   {
